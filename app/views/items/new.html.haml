@@ -7,6 +7,7 @@
         .text
           %p 出品画像
           %span 必須
+        %p 最大10枚までアップロードできます
         .item_image_paragraph
           =f.fields_for :images do |i|
             = i.label :image, class: "image-file" do
@@ -17,75 +18,85 @@
                   %br
                     またはクリックしてファイルをダウンロード
                 =i.file_field :image, class: 'file'
-      .item_name
-        .text
-          %p 商品名
-          %span 必須
-        .item_input_form_name
-          = f.text_field :name, maxlength: '40', placeholder: "４０字まで", class: "name_field"
-      .item_description
-        .text
-          %p 商品の説明
-          %span 必須
-        =f.text_area :text, maxlength:'1000', placeholder: "商品の説明（必須 1,000文字以内（色、重さ、定価、注意点など)", class: "item-text_field"
-      .item_category
-        .text
-          %p カテゴリー
-          %span 必須 
-        .item_category_form
-          = f.collection_select :category_id, @category_parent,:id,:name,{include_blank: "選択してください"},class: "input-select",id: "parent-form"
-      .item_brand
-        .text
-          %p ブランド
-          %span.brand_text 任意
-        .item_brand_form
-          = f.text_field :brand, placeholder: "例  GUCCI", class: "name_field"
-      .item_status
-        .text
-          %p 商品の状態
-          %span 必須
-        .item_status_form
-          = f.select :item_status, [["新品、未使用", "新品、未使用"],["未使用に近い", "未使用に近い"],["目立った傷や汚れなし", "目立った傷や汚れなし"],["やや傷や汚れあり","やや傷や汚れあり"],["傷や汚れあり","傷や汚れあり"],["全体的に状態が悪い","全体的に状態が悪い"]],{include_blank: "選択してください"},class: "input-select"
-      .item_delivery
-        %p.text1 配送について
-        .item_delivery_burden
+      .item-lists
+        .item_name
           .text
-            %p 配送料の負担
+            %p 商品名
             %span 必須
-          .item_delevery_burden_input
-            =f.select :delivery_charge, [["送料込み(出品者負担)", "送料込み(出品者負担)"],["着払い(購入者負担)", "着払い(購入者負担)"]],{include_blank: "選択してください"}, class: "input-select"
-        .item_delivery_area
+          .item_input_form_name
+            = f.text_field :name, maxlength: '40', placeholder: "４０字まで", class: "name_field", id: "name-form"
+          %span.error-info1
+        .item_description
           .text
-            %p 発送元の地域
+            %p 商品の説明
             %span 必須
-          .item_delevery_area_input
-            = f.select :delivery_area, Prefecture.all.map { |pre| [pre.name, pre.id] },{include_blank: "選択してください"}, class: "input-select"
-        .item_delevery_day
+          =f.text_area :text, maxlength:'1000', placeholder: "商品の説明（必須 1,000文字以内（色、重さ、定価、注意点など)", class: "item-text_field"
+          %span.error-info2
+        .item_category
           .text
-            %p 発送までの日数
-            %span
-              必須
-        .item_delevery_day_input
-          = f.select :delivery_days, [["1~2日で発送", "1~2日で発送"],["2~3日で発送","2~3日で発送"],["4~7日で発送","4~7日で発送"]], {include_blank: "選択してください"}, class: "input-select"
-      .item_price
-        %p.text1
-          価格（¥300〜9,999,999）
-        .text
+            %p カテゴリー
+            %span 必須 
+          .item_category_form
+            = f.collection_select :category_id, @category_parent,:id,:name,{include_blank: "選択してください"},class: "input-select",id: "parent-form"
+            %span.error-info3
+        .item_brand
+          .text
+            %p ブランド
+            %span.brand_text 任意
+          .item_brand_form
+            = f.text_field :brand, placeholder: "例  GUCCI", class: "name_field", id: "brand-form"
+        .item_status
+          .text
+            %p 商品の状態
+            %span 必須
+          .item_status_form
+            = f.select :item_status, [["新品、未使用", "新品、未使用"],["未使用に近い", "未使用に近い"],["目立った傷や汚れなし", "目立った傷や汚れなし"],["やや傷や汚れあり","やや傷や汚れあり"],["傷や汚れあり","傷や汚れあり"],["全体的に状態が悪い","全体的に状態が悪い"]],{include_blank: "選択してください"},class: "input-select", id: "item-status-form"
+            %span.error-info4
+        .item_delivery
+          %p.text1 配送について
+          .item_delivery_burden
+            .text
+              %p 配送料の負担
+              %span 必須
+            .item_delevery_burden_input
+              =f.select :delivery_charge, [["送料込み(出品者負担)", "送料込み(出品者負担)"],["着払い(購入者負担)", "着払い(購入者負担)"]],{include_blank: "選択してください"}, class: "input-select", id: "item_delevery_burden-form"
+              %span.error-info5
+          .item_delivery_area
+            .text
+              %p 発送元の地域
+              %span 必須
+            .item_delevery_area_input
+              = f.select :delivery_area, Prefecture.all.map { |pre| [pre.name, pre.id] },{include_blank: "選択してください"}, class: "input-select", id: "item_delevery_area-form"
+              %span.error-info6
+          .item_delevery_day
+            .text
+              %p 発送までの日数
+              %span
+                必須
+          .item_delevery_day_input
+            = f.select :delivery_days, [["1~2日で発送", "1~2日で発送"],["2~3日で発送","2~3日で発送"],["4~7日で発送","4~7日で発送"]], {include_blank: "選択してください"}, class: "input-select", id: "item_delevery_day-form"
+            %span.error-info7
+        .item_price
+          %p.text1
+            価格（¥300〜9,999,999）
+          .text
+            %p
+              販売価格
+              %span 必須
+          .clearfix
+            .item_price_number
+              %p
+                ¥
+              = f.number_field :price, placeholder: "0", class: "input-form_price",id: "price-form"
+          %span.error-info8
+        .item_price_fee
           %p
-            販売価格
-            %span 必須
-        .item_price_number
-          %p
-            ¥
-          = f.number_field :price, placeholder: "0", class: "input-form_price",id: "price-form", onKeyUp: "myFunc()"
-      .item_price_fee
-        %p
-          販売手数料(3%)
-        %span#item_price_number
-      .item_sell_btn
-        .submit-btn
-          =f.submit "出品する", class: "listing_button"
-          =link_to "戻る","#"
+            販売手数料(3%)
+          %span#item_price_number
+        .item_sell_btn
+          .submit-btn
+            =f.submit "出品する", class: "listing_button"
+            =link_to "戻る", root_path
   .footer_item
     = render "devise/shared/footer"
 
