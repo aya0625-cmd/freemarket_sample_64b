@@ -10,14 +10,14 @@
           %span 必須
         .item_image_paragraph
           =f.fields_for :images do |i|
-            = i.label :image, class: "image-file" do
+            = i.label :image, multiple: true, class: "image-file" do
               .file-btn
                 =icon("fas", "camera",class: "icon")
                 %p 
                   ドラッグアンドドロップ
                   %br
                     またはクリックしてファイルをダウンロード
-                =i.file_field :image, class: 'file'
+                =i.file_field :image, multiple: true, class: 'file'
         .input_item_image-new
       .item_name
         .text

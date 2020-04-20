@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
     @item.images.build
     @category_parent = ["---"]
     @category_parent= Category.where(ancestry: nil).each do |parent|
-    @category_parent<<parent.name
+    @category_parent << parent.name
     end
   end
 
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
   private
   
   def item_params
-    params.require(:item).permit(:name,:text,:item_status,:price,:delivery_area,:delivery_charge,:delivery_days,:brand_id,:category_id,images_attributes: [:image]).merge(solder_id: current_user.id)
+    params.require(:item).permit(:name,:text,:item_status,:price,:delivery_area,:delivery_charge,:delivery_days,:brand_id,:category_id,images_attributes:{image: []}).merge(solder_id: current_user.id)
   end
   
 

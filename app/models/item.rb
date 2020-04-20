@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   belongs_to :solder, class_name: "User", optional: true
   belongs_to :buyer, class_name: "User", optional: true
   has_many :images
-
+  accepts_nested_attributes_for :images
   
   validates :name, :text, :item_status, :price, :delivery_charge, :delivery_area, :delivery_days, :category_id, presence: true
 end
